@@ -1,5 +1,7 @@
 <script lang="ts">
+    import { applyAction, enhance } from '$app/forms';
     import { page } from '$app/stores';
+    import { currentUser, pb } from '$lib/pocketbase';
 </script>
 
 <div class="navbar bg-transparent glass-effect">
@@ -18,6 +20,7 @@
   <a href="/tracks" aria-current={$page.url.pathname === '/tracks'} class={$page.url.pathname === '/tracks' ? 'border-b-2 border-primary' : 'border-b-2 border-transparent hover:border-gray-300'}>tracks</a>
   <a href="/about" aria-current={$page.url.pathname === '/about'} class={$page.url.pathname === '/about' ? 'border-b-2 border-primary' : 'border-b-2 border-transparent hover:border-gray-300'}>about</a>
   <a href="/contact" aria-current={$page.url.pathname === '/contact'} class={$page.url.pathname === '/contact' ? 'border-b-2 border-primary' : 'border-b-2 border-transparent hover:border-gray-300'}>contact</a>
+  {#if $currentUser}
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
@@ -38,9 +41,22 @@
         <!-- svelte-ignore a11y-missing-attribute -->
         <li><a>Settings</a></li>
         <!-- svelte-ignore a11y-missing-attribute -->
-        <li><a>Logout</a></li>
+        <li>
+          <form method="POST" action="/logout" use:enhance={() => {
+            return async ({ result }) => {
+              pb.authStore.clear();
+              applyAction(result);
+            }
+          }}>
+            <button>logout</button>
+          </form>
+        </li>
       </ul>
     </div>
+  {:else}
+    <a href="/login" aria-current={$page.url.pathname === '/login'} class={$page.url.pathname === '/login' ? 'border-b-2 border-primary' : 'border-b-2 border-transparent hover:border-gray-300'}>login</a>
+    <a href="/register" aria-current={$page.url.pathname === '/register'} class={$page.url.pathname === '/register' ? 'border-b-2 border-primary' : 'border-b-2 border-transparent hover:border-gray-300'}>register</a>
+  {/if}
   </div>
 </div>
 
