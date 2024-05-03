@@ -16,13 +16,14 @@
     <!-- title and description -->
     <div class="text-white">
         <h1 class="text-4xl font-semibold">{data.track.title}</h1>
-        <h3 class="text-xl text-gray-300 font-light">{data.track.description}</h3>
+        <h3 class="text-xl text-gray-300 font-light mb-2">{data.track.description}</h3>
+        <span class="badge badge-neutral">Last Updated: {data.track.updatedDate.toLocaleDateString()}</span>
     </div>
 
     <!-- Progress bar -->
     <div class="absolute bottom-0 right-0 mx-4 my-4 flex flex-col items-end glass pb-3 px-3 py-1 rounded">
-        <span class="mb-1">{completed}/{data?.track.numNodes}</span>
-        <progress class="progress progress-success w-56" value={completed} max={data?.track.numNodes}></progress>
+        <span class="mb-1">{completed}/{data.track.numNodes}</span>
+        <progress class="progress progress-success w-56" value={completed} max={data.track.numNodes}></progress>
     </div>
 </div>
 
