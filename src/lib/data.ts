@@ -32,7 +32,7 @@ export const trackInfo = [
         "description": "Understand the lifecycle of software development and deployment",
         "numNodes": 65,
         "createdDate": new Date(2021, 4, 1),
-        "updatedDate": new Date(2021, 4, 15)
+        "updatedDate": new Date(2024, 4, 28)
     },
     {
         "title": "Cybersecurity",
